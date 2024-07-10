@@ -1,0 +1,16 @@
+<ng-container *ngIf="cancelOrderForm">
+    <div [formGroup]="cancelOrderForm">
+        <div class="flex flex-col">
+            <mat-form-field
+                class="fuse-mat-dense fuse-mat-rounded fuse-mat-bold w-full"
+            >
+                <mat-label>Note a reason</mat-label>
+                <textarea matInput [formControlName]="'note'"></textarea>
+            </mat-form-field>
+
+            <button mat-raised-button color="warn" (click)="cancelOrder()">
+                CANCEL ORDER
+            </button>
+        </div>
+    </div>
+</ng-container>
