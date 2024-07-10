@@ -30,8 +30,8 @@ export class DashboardService {
     /**
      * Get data
      */
-    getData(): Observable<any> {
-        return this._httpClient.get('/api/dashboards/analytics').pipe(
+    getData(filter: any = {}): Observable<any> {
+        return this._httpClient.post('/api/dashboards/analytics', filter).pipe(
             tap((response: any) => {
                 this._data.next(response);
             }),

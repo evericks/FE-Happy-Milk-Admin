@@ -13,6 +13,33 @@
         }
         <!-- Title -->
         <div class="text-4xl font-extrabold tracking-tight">Dashboard</div>
+        <div [formGroup]="filterForm">
+            <mat-form-field
+                class="fuse-mat-dense fuse-mat-rounded min-w-64"
+                [subscriptSizing]="'dynamic'"
+            >
+                <mat-date-range-input [rangePicker]="picker">
+                    <input
+                        matStartDate
+                        [formControlName]="'from'"
+                        placeholder="From"
+                    />
+                    <input
+                        matEndDate
+                        [formControlName]="'to'"
+                        placeholder="To"
+                    />
+                </mat-date-range-input>
+                <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-date-range-picker
+                    (opened)="onPickerOpened()"
+                    #picker
+                ></mat-date-range-picker>
+            </mat-form-field>
+        </div>
     </div>
 
     <div
@@ -54,16 +81,37 @@
                 </div> -->
                 </div>
                 <div class="mt-6 flex h-44 flex-auto flex-col">
-                    <apx-chart
-                        class="flex h-full w-full flex-auto items-center justify-center"
-                        [chart]="chartOrderRevenue.chart"
-                        [colors]="chartOrderRevenue.colors"
-                        [labels]="chartOrderRevenue.labels"
-                        [plotOptions]="chartOrderRevenue.plotOptions"
-                        [series]="chartOrderRevenue.series"
-                        [states]="chartOrderRevenue.states"
-                        [tooltip]="chartOrderRevenue.tooltip"
-                    ></apx-chart>
+                    @if (
+                        data.orderRevenue &&
+                        data.orderRevenue.uniqueVisitors > 0
+                    ) {
+                        <apx-chart
+                            class="flex h-full w-full flex-auto items-center justify-center"
+                            [chart]="chartOrderRevenue.chart"
+                            [colors]="chartOrderRevenue.colors"
+                            [labels]="chartOrderRevenue.labels"
+                            [plotOptions]="chartOrderRevenue.plotOptions"
+                            [series]="chartOrderRevenue.series"
+                            [states]="chartOrderRevenue.states"
+                            [tooltip]="chartOrderRevenue.tooltip"
+                        ></apx-chart>
+                    } @else {
+                        <div
+                            class="flex h-full w-full items-center justify-center"
+                        >
+                            <div
+                                class="flex flex-col items-center justify-center gap-3"
+                            >
+                                <mat-icon
+                                    class="text-purple-700 icon-size-24"
+                                    svgIcon="heroicons_outline:no-symbol"
+                                ></mat-icon>
+                                <div class="text-2xl font-bold text-purple-700">
+                                    Chưa có dữ liệu
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
                 <div class="mt-8">
                     <div class="-my-3 divide-y">
@@ -141,16 +189,36 @@
                 </div> -->
                 </div>
                 <div class="mt-6 flex h-44 flex-auto flex-col">
-                    <apx-chart
-                        class="flex h-full w-full flex-auto items-center justify-center"
-                        [chart]="chartOrderStatus.chart"
-                        [colors]="chartOrderStatus.colors"
-                        [labels]="chartOrderStatus.labels"
-                        [plotOptions]="chartOrderStatus.plotOptions"
-                        [series]="chartOrderStatus.series"
-                        [states]="chartOrderStatus.states"
-                        [tooltip]="chartOrderStatus.tooltip"
-                    ></apx-chart>
+                    @if (
+                        data.orderStatus && data.orderStatus.uniqueVisitors > 0
+                    ) {
+                        <apx-chart
+                            class="flex h-full w-full flex-auto items-center justify-center"
+                            [chart]="chartOrderStatus.chart"
+                            [colors]="chartOrderStatus.colors"
+                            [labels]="chartOrderStatus.labels"
+                            [plotOptions]="chartOrderStatus.plotOptions"
+                            [series]="chartOrderStatus.series"
+                            [states]="chartOrderStatus.states"
+                            [tooltip]="chartOrderStatus.tooltip"
+                        ></apx-chart>
+                    } @else {
+                        <div
+                            class="flex h-full w-full items-center justify-center"
+                        >
+                            <div
+                                class="flex flex-col items-center justify-center gap-3"
+                            >
+                                <mat-icon
+                                    class="text-purple-700 icon-size-24"
+                                    svgIcon="heroicons_outline:no-symbol"
+                                ></mat-icon>
+                                <div class="text-2xl font-bold text-purple-700">
+                                    Chưa có dữ liệu
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
                 <div class="mt-8">
                     <div class="-my-3 divide-y">
